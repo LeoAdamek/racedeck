@@ -1,0 +1,22 @@
+{
+    "extensions": {
+        "recommendations": [
+            "earthly.earthfile-syntax-highlighting",
+            "golang.go",
+            "zxh404.vscode-proto3"
+        ]
+    },
+
+    "settings": {
+        "gopls": {
+            "build.experimentalWorkspaceModule": true
+        }
+    },
+
+    "folders": [
+        {
+            "path": "./api",
+            "name": "API"
+        }
+    ]
+}
