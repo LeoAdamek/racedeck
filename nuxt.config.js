@@ -7,7 +7,7 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'racedeck',
+    title: 'Racedeck',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -42,6 +42,30 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    // Firebase support
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyBI6Iu8-mudQWSon7WC2VHswzLjv4bJWhI',
+          authDomain: 'racedeck-3e133.firebaseapp.com',
+          projectId: 'racedeck',
+          storageBucket: 'racedeck.appspot.com',
+          messagingSenderId: '919826297281',
+          appId: '1:919826297281:web:dcb84ffb471d83eb893f40',
+        },
+        services: {
+          auth: {
+            ssr: false,
+          },
+
+          firestore: {
+            memoryOnly: false,
+            enablePersistence: true,
+          },
+        },
+      },
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

@@ -1,11 +1,15 @@
 <template>
-  <Tutorial />
+  <div>
+    <h1>Racedeck</h1>
+
+    <pre>{{ tracks }}</pre>
+  </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
-  name: 'IndexPage',
-})
+export default class Tracks extends Vue {
+  readonly tracks = this.$fire.firestore.collection('tracks')
+}
 </script>
