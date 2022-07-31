@@ -8,8 +8,19 @@
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapState } from 'vuex'
 
-export default class Tracks extends Vue {
-  readonly tracks = this.$fire.firestore.collection('tracks')
-}
+export default Vue.extend({
+  computed: {
+    ...mapState('tracks', ['tracks', 'updated'])
+  },
+
+  data: () => ({
+    unsub: null,
+  }),
+
+  async mounted() {
+    this.unsub = await this.$store.dispatch('tracks/subscribeToAll') 
+  },
+})
 </script>
