@@ -1,5 +1,5 @@
 <template>
-    <span>Hello {{name}}</span>
+  <span>Hello {{ name }}</span>
 </template>
 
 <script lang="ts">
@@ -9,6 +9,6 @@ import { Prop } from 'vue-property-decorator'
 
 @Component
 export default class TrackCard extends Vue {
-    @Prop() readonly name!: string
+  @Prop() readonly name!: string
 }
 </script>

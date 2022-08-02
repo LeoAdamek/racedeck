@@ -11,6 +11,5 @@ import TrackCard from '~/components/tracks/card.vue'
 @Component({
   components: { TrackCard },
 })
-export default class Index extends Vue {
-}
+export default class Index extends Vue {}
 </script>

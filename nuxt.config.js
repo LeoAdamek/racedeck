@@ -42,6 +42,23 @@ export default {
     '@nuxtjs/axios',
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
+    [
+      '@nuxtjs/firebase',
+      {
+        config: {
+          apiKey: 'AIzaSyBI6Iu8-mudQWSon7WC2VHswzLjv4bJWhI',
+          authDomain: 'racedeck-3e133.firebaseapp.com',
+          projectId: 'racedeck',
+          storageBucket: 'racedeck.appspot.com',
+          messagingSenderId: '919826297281',
+          appId: '1:919826297281:web:dcb84ffb471d83eb893f40',
+        },
+        services: {
+          firestore: true,
+          auth: true,
+        },
+      },
+    ],
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
