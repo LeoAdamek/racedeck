@@ -1,5 +1,8 @@
 {
   "files": [],
+  "compilerOptions": {
+    "types": ["pinia-plugin-persist"],
+  },
   "references": [
     {
       "path": "./tsconfig.config.json"

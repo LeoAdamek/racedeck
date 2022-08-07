@@ -1,17 +1,15 @@
 <template>
-    <pre>{{ tracks.tracks }}</pre>
-    <small>Last Updated: {{ tracks.updatedAt }}</small>
-
-    <button role="button" class="text-white from-purple-900 bg-gradient-to-tr bg-purple-600 m-3 p-2 rounded-md shadow-md" @click="update()">Update</button>
+    <TrackCard v-for="track in tracks.tracks" :key="track.id" :track="track" />
 </template>
 
 <script setup lang="ts">
-
-import { useTracksStore } from '@/stores/tracks'
+import { useTracksStore } from '@/stores/tracks.js';
+import { onUnmounted } from 'vue';
+import TrackCard from '../components/tracks/TrackCard.vue';
 
 const tracks = useTracksStore()
 
-function update() {
-    tracks.update()
-}
+tracks.subscribeAll()
+
+onUnmounted(() => tracks.unsubscribe())
 </script>
