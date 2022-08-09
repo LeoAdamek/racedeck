@@ -3,6 +3,8 @@ import ProfileView from '@/views/user/Profile.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import TracksView from '@/views/tracks/Tracks.vue'
 import CarsView from '@/views/cars/Cars.vue'
+import TrackView from '@/views/tracks/Track.vue'
+import NewTrackView from '@/views/tracks/NewTrack.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -16,14 +18,23 @@ const router = createRouter({
     {
       path: '/tracks',
       name: 'tracks',
-      component: TracksView
+      component: TracksView,
+      children: [
+        {
+          path: ':id',
+          name: 'track',
+          component: TrackView
+        },
+      ]
     },
 
+
     {
-      path: '/tracks/:id',
-      name: 'track',
-      component: () => import('../views/tracks/Track.vue')
+      path: '/tracks/new',
+      name: 'tracks-new',
+      component: NewTrackView
     },
+
 
     {
       path: '/cars',
@@ -41,7 +52,8 @@ const router = createRouter({
       path: '/profile',
       name: 'user-profile',
       component: ProfileView
-    }
+    },
+
   ]
 })
 

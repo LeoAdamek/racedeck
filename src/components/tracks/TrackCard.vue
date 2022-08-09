@@ -1,8 +1,8 @@
 <template>
-    <div class="mb-4 p-2 border-2 rounded-md">
-        <router-link :to="`/tracks/${props.track.id}`">
+    <div class="p-2 border-b hover:text-gray-400">
+        <router-link :to="{ name: 'track', params: { id: props.track.id }}">
             <div class="row flex justify-between">
-                <h2 class="text-lg font-bold">{{props.track.name}}</h2>
+                <h2 class="text-lg font-semibold">{{props.track.name}}</h2>
                 <h2 class="font-semibold font-mono p-1 bg-purple-800 text-white rounded-md">{{props.track.country}}</h2>
             </div>
         </router-link>

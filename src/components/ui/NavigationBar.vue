@@ -5,8 +5,8 @@
         <router-link to="/">
           <h2 class="text-white font-bold text-3xl mx-4">Racedeck</h2>
         </router-link>
-        <NavLink to="/tracks">Tracks</NavLink>
-        <NavLink to="/cars">Cars</NavLink>
+        <NavLink :to="{ name: 'tracks' }">Tracks</NavLink>
+        <NavLink :to="{ name: 'cars' }">Cars</NavLink>
       </div>
 
       <div class="flex flex-row items-center justify-end">
