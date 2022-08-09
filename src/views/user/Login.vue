@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center items-center">
-        <div class="shadow rounded-md min-h-60 align-middle p-4 w-1/2">
-            <h2 class="text-lg font-bold mb-2">Login</h2>
+        <div class="shadow rounded-md min-h-60 align-middle p-4 w-1/3">
+            <h2 class="text-lg font-bold mb-2">Log In</h2>
             <div class="flex justify-center items-center flex-col">
                 <form @submit.prevent="login()" class="w-full">
                     <div class="rounded-md shadow-sm -space-y-px w-full">

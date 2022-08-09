@@ -1,5 +1,8 @@
+import LoginView from '@/views/user/Login.vue'
+import ProfileView from '@/views/user/Profile.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
+import TracksView from '@/views/tracks/Tracks.vue'
+import CarsView from '@/views/cars/Cars.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +10,13 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HomeView
+      redirect: '/tracks'
+    },
+
+    {
+      path: '/tracks',
+      name: 'tracks',
+      component: TracksView
     },
 
     {
@@ -17,9 +26,21 @@ const router = createRouter({
     },
 
     {
+      path: '/cars',
+      name: 'cars',
+      component: CarsView
+    },
+
+    {
       path: '/login',
       name: 'user-login',
-      component: () => import('../views/user/Login.vue')
+      component: LoginView
+    },
+
+    {
+      path: '/profile',
+      name: 'user-profile',
+      component: ProfileView
     }
   ]
 })

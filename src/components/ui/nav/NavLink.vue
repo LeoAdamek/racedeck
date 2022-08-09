@@ -1,6 +1,6 @@
 <template>
     <router-link :to="to">
-        <span class="ml-3 p-2 rounded-md bg-black bg-opacity-75 text-white">
+        <span class="flex items-center ml-3 p-2 rounded-md bg-black bg-opacity-60 text-white">
             <slot />
         </span>
     </router-link>

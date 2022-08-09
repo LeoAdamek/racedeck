@@ -6,10 +6,12 @@
           <h2 class="text-white font-bold text-3xl mx-4">Racedeck</h2>
         </router-link>
         <NavLink to="/tracks">Tracks</NavLink>
+        <NavLink to="/cars">Cars</NavLink>
       </div>
 
-      <div class="w-1/3 flex flex-row items-center justify-end">
-        <NavUser class="w-full" />
+      <div class="flex flex-row items-center justify-end">
+        <Notifications />
+        <NavUser />
       </div>
     </div>
   </nav>
@@ -18,4 +20,5 @@
 <script setup lang="ts">
 import NavLink from "./nav/NavLink.vue";
 import NavUser from "./nav/NavUser.vue";
+import Notifications from "./Notifications.vue";
 </script>

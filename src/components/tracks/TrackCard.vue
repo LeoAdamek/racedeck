@@ -1,5 +1,5 @@
 <template>
-    <div class="mb-4 p-2 shadow-md rounded-lg">
+    <div class="mb-4 p-2 border-2 rounded-md">
         <router-link :to="`/tracks/${props.track.id}`">
             <div class="row flex justify-between">
                 <h2 class="text-lg font-bold">{{props.track.name}}</h2>

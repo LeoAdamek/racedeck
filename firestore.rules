@@ -5,9 +5,9 @@ service cloud.firestore {
   	// Default rules for all documents
     match /{document=**} {
     	
-      // Allow writes if user has "super_admin" set to "true"
+      // Allow writes if user has "isSuperAdmin" set to "true"
       allow write: if 
-      	get(/databases/$(database)/documents/users/$(request.auth.uid)).data.super_admin == true;
+      	get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isSuperAdmin == true;
         
       // Allow reads by default
       allow read;

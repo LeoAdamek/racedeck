@@ -5,7 +5,7 @@
 <script setup lang="ts">
 import { useTracksStore } from '@/stores/tracks.js';
 import { onUnmounted } from 'vue';
-import TrackCard from '../components/tracks/TrackCard.vue';
+import TrackCard from '@/components/tracks/TrackCard.vue';
 
 const tracks = useTracksStore()
 
