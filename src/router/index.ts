@@ -5,6 +5,7 @@ import TracksView from '@/views/tracks/Tracks.vue'
 import CarsView from '@/views/cars/Cars.vue'
 import TrackView from '@/views/tracks/Track.vue'
 import NewTrackView from '@/views/tracks/NewTrack.vue'
+import NewLayoutView from '@/views/tracks/NewLayout.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -21,20 +22,25 @@ const router = createRouter({
       component: TracksView,
       children: [
         {
+          path: 'new',
+          name: 'tracks-new',
+          component: NewTrackView
+        },
+
+        {
           path: ':id',
           name: 'track',
-          component: TrackView
+          component: TrackView,
+          children: [
+            {
+              path: 'new-layout',
+              name: 'new-layout',
+              component: NewLayoutView
+            }
+          ]
         },
       ]
     },
-
-
-    {
-      path: '/tracks/new',
-      name: 'tracks-new',
-      component: NewTrackView
-    },
-
 
     {
       path: '/cars',

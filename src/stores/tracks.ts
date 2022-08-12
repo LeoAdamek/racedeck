@@ -1,5 +1,6 @@
 import { useFirebase } from "@/lib/firebase";
-import { collection, doc, DocumentReference, DocumentSnapshot, getFirestore, onSnapshot, QueryDocumentSnapshot, QuerySnapshot, type GeoPoint } from "@firebase/firestore";
+import { collection, DocumentReference, DocumentSnapshot, getFirestore, onSnapshot, QueryDocumentSnapshot, QuerySnapshot, type GeoPoint } from "@firebase/firestore";
+import { getStorage, ref as storageRef } from "@firebase/storage";
 import { defineStore } from "pinia";
 
 export interface Layout {
@@ -8,6 +9,11 @@ export interface Layout {
     corners: number
     surface?: string[]
     simulators?: DocumentReference[]
+    map?: {
+        license: string
+        uri: any
+        downloadLink?: string
+    }
 }
 
 export interface Track {
@@ -26,7 +32,9 @@ export interface TrackStoreState {
     unsubscribe: Function | null
 }
 
-const db = getFirestore(useFirebase())
+const firebase = useFirebase()
+const db = getFirestore(firebase)
+const storage = getStorage(firebase)
 
 const state =  (): TrackStoreState => ({
     tracks: {},
@@ -77,7 +85,13 @@ export const useTracksStore = defineStore({
 
             this.tracks[id].layoutsSubscription = onSnapshot(ref, (qs: QuerySnapshot) => {
                 qs.forEach((doc: QueryDocumentSnapshot) => {
-                    this.tracks[id].layouts![doc.id] = doc.data() as Layout
+                    const layout = doc.data() as Layout
+
+                    if (layout.map) {
+                        layout.map.uri = storageRef(storage, layout.map.uri)
+                    }
+
+                    this.tracks[id].layouts![doc.id] = layout
                 })
             })
         },

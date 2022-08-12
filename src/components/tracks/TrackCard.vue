@@ -1,5 +1,5 @@
 <template>
-    <div class="p-2 border-b hover:text-gray-400">
+    <div class="p-2 appearance-none relative block border w-full rounded-none first:rounded-t-md hover:text-gray-400">
         <router-link :to="{ name: 'track', params: { id: props.track.id }}">
             <div class="row flex justify-between">
                 <h2 class="text-lg font-semibold">{{props.track.name}}</h2>
