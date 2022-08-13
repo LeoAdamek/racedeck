@@ -28,16 +28,15 @@ const router = createRouter({
         },
 
         {
+          path: ':id/new-layout',
+          name: 'new-layout',
+          component: NewLayoutView
+        },
+
+        {
           path: ':id',
           name: 'track',
           component: TrackView,
-          children: [
-            {
-              path: 'new-layout',
-              name: 'new-layout',
-              component: NewLayoutView
-            }
-          ]
         },
       ]
     },

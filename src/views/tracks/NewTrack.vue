@@ -1,5 +1,5 @@
 <template>
-    <header role="heading"><span class="font-bold text-3xl">Add Track</span></header>
+    <PageHeading>Add Track</PageHeading>
 
     <form @submit.prevent="createTrack()">
         <div class="flex flex-col">
@@ -36,6 +36,7 @@
 import { useFirebase } from '@/lib/firebase';
 import { getFirestore, setDoc, doc } from '@firebase/firestore';
 import { ref } from 'vue'
+import PageHeading from '../../components/ui/typography/PageHeading.vue'
 
 const $emit = defineEmits(['create-track'])
 const db = getFirestore(useFirebase())
@@ -45,7 +46,6 @@ const fields = ref({
     name: '',
     country: ''
 })
-
 
 async function createTrack() {
     await setDoc(doc(db, 'tracks', fields.value.slug), fields.value) 
