@@ -1,13 +1,17 @@
 <template>
-    <div>
+    <div v-if="loaded">
         <header role="heading">
             <PageHeading>{{ track.name }}</PageHeading>
         </header>
 
-        <ul class="bg-white rounded-lg border border-gray-200 w-2/3 mx-auto mt-4">
+        <ul class="bg-white rounded-lg border border-gray-200 w-full mx-auto mt-4">
             <li class="px-6 py-2 border-b border-gray-200 w-full" v-for="(layout, id) in track.layouts" :key="id">
 
-                <h3 class="text-xl border-b my-2">{{layout.name}}</h3>
+                <h3 class="text-xl border-b my-2 w-full">
+                    {{layout.name}}
+
+                    <span class="font-light px-2 text-right" v-if="layout.opened">{{ layout.opened }} &ndash; {{ layout.closed || 'present'}}</span>
+                </h3>
 
                 <div class="flex flex-col justify-between">
                     <div class="flex flex-row justify-between">
@@ -37,15 +41,18 @@
 
 <script setup lang="ts">
 import { useSimulatorsStore } from '@/stores/sims';
-import { useTracksStore } from '@/stores/tracks';
+import { type Track, useTracksStore } from '@/stores/tracks';
 import { useUserStore } from '@/stores/user';
-import { onUnmounted, ref } from 'vue';
+import { computed, onUnmounted, ref } from 'vue';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import { PlusIcon } from '@heroicons/vue/solid';
 import PageHeading from '../../components/ui/typography/PageHeading.vue';
 
-const track = ref()
+const track = ref<Track>()
 const tracks = useTracksStore()
+
+tracks.subscribeAll()
+
 const user = useUserStore()
 
 onBeforeRouteUpdate((to, from) => {
@@ -66,4 +73,8 @@ const sims = useSimulatorsStore()
 sims.subscribe()
 
 onUnmounted(() => tracks.unsubscribeLayouts(id as string))
+
+const loaded = computed( () => {
+    return track.value !== undefined && track.value.layouts !== undefined
+})
 </script>

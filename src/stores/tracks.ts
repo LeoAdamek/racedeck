@@ -9,6 +9,8 @@ export interface Layout {
     corners: number
     surface?: string[]
     simulators?: DocumentReference[]
+    opened?: number
+    closed?: number
     map?: {
         license: string
         uri: any
@@ -83,7 +85,7 @@ export const useTracksStore = defineStore({
 
             this.tracks[id].layouts ||= {}
 
-            this.tracks[id].layoutsSubscription = onSnapshot(ref, (qs: QuerySnapshot) => {
+            const s = onSnapshot(ref, (qs: QuerySnapshot) => {
                 qs.forEach((doc: QueryDocumentSnapshot) => {
                     const layout = doc.data() as Layout
 
@@ -94,6 +96,9 @@ export const useTracksStore = defineStore({
                     this.tracks[id].layouts![doc.id] = layout
                 })
             })
+            this.tracks[id].layoutsSubscription  = s
+
+            return s
         },
         
         /**

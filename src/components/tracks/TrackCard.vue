@@ -3,7 +3,7 @@
         <router-link :to="{ name: 'track', params: { id: props.track.id }}">
             <div class="row flex justify-between">
                 <h2 class="text-lg font-semibold">{{props.track.name}}</h2>
-                <h2 class="font-semibold font-mono p-1 bg-purple-800 text-white rounded-md">{{props.track.country}}</h2>
+                <h2 class="font-semibold font-mono p-1 bg-violet-700 text-white rounded-md">{{props.track.country}}</h2>
             </div>
         </router-link>
     </div>
