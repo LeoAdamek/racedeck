@@ -1,5 +1,5 @@
 <template>
-    <NavLink v-if="!user.isLoggedIn" to="/login">
+    <NavLink v-if="!isLoggedIn" to="/login">
         <LockClosedIcon class="w-5 h-5" />
         Log In
     </NavLink>
@@ -9,11 +9,12 @@
 
 <script setup lang="ts">
 import { useUserStore } from '@/stores/user';
-import { ChevronDownIcon } from '@heroicons/vue/outline';
 import { LockClosedIcon } from '@heroicons/vue/solid';
 import NavLink from './NavLink.vue';
 
-const user = useUserStore()
+const { user } = useUserStore()
 
-const displayName = user.user?.displayName || user.user?.email || ''
+const isLoggedIn = () => user.value !== null && !user.value.isAnonymous
+
+const displayName = user.value?.email
 </script>

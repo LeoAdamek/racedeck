@@ -1,6 +1,6 @@
 import { useFirebase } from "@/lib/firebase";
 import { collection, DocumentReference, DocumentSnapshot, getFirestore, onSnapshot, QueryDocumentSnapshot, QuerySnapshot, type GeoPoint } from "@firebase/firestore";
-import { getStorage, ref as storageRef } from "@firebase/storage";
+import { getDownloadURL, getStorage, ref as storageRef } from "@firebase/storage";
 import { defineStore } from "pinia";
 
 export interface Layout {
@@ -78,7 +78,7 @@ export const useTracksStore = defineStore({
          * Subscribe to the layouts for a track
          * @param id Track ID
          */
-        subscribeLayouts(id: string) {
+        async subscribeLayouts(id: string) {
             const ref = collection(db, 'tracks', id, 'layouts')
             
             if (!this.tracks[id]) return
@@ -86,11 +86,11 @@ export const useTracksStore = defineStore({
             this.tracks[id].layouts ||= {}
 
             const s = onSnapshot(ref, (qs: QuerySnapshot) => {
-                qs.forEach((doc: QueryDocumentSnapshot) => {
+                qs.forEach(async (doc: QueryDocumentSnapshot) => {
                     const layout = doc.data() as Layout
 
                     if (layout.map) {
-                        layout.map.uri = storageRef(storage, layout.map.uri)
+                        layout.map.downloadLink = await getDownloadURL(storageRef(storage, layout.map.uri))
                     }
 
                     this.tracks[id].layouts![doc.id] = layout

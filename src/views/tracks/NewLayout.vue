@@ -82,6 +82,6 @@ async function createLayout() {
     // Attempt to create the layout
     await setDoc(doc(db, 'tracks', id as string, 'layouts', fields.slug), fields)
 
-    useRouter().addRoute({ name: 'track', params: { id } })
+    useRouter().push({ name: 'track', params: { id } })
 }
 </script>

@@ -7,6 +7,7 @@ export const config = {
     storageBucket: 'racedeck.appspot.com',
     messagingSenderId: '919826297281',
     appId: '1:919826297281:web:dcb84ffb471d83eb893f40',
+    measurementId: "G-KWV4T4RYTT",
 }
 
 let firebase: FirebaseApp;

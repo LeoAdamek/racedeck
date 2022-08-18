@@ -1,12 +1,12 @@
 import { useFirebase } from "@/lib/firebase";
-import { defineStore, type StoreActions } from "pinia";
-import { getAuth, signInWithEmailAndPassword, type User } from '@firebase/auth'
+import { defineStore } from "pinia";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, type User, type UserCredential } from '@firebase/auth'
 import { doc, getDoc, getFirestore } from "@firebase/firestore";
-import { UserAddIcon } from "@heroicons/vue/outline";
+import { ref, type Ref } from "vue";
 
-const firebase = useFirebase()
-const auth = getAuth(firebase)
-const db   = getFirestore(firebase)
+const firebase = useFirebase(),
+    auth = getAuth(firebase),
+    db = getFirestore(firebase)
 
 export interface Profile {
     name: string
@@ -14,25 +14,30 @@ export interface Profile {
 }
 
 export interface UserState {
+    credential: UserCredential | null,
     profile: Profile | null,
 }
 
 const state = (): UserState => ({
+    credential: null,
     profile: null,
+})
+
+let currentUser: Ref<User | null> = ref(null)
+
+onAuthStateChanged(auth, (user) => {
+    currentUser.value = user
 })
 
 export const useUserStore = defineStore({
     id: 'user',
     state,
-    persist: {
-        enabled: true,
-    },
     actions: {
         async loginWithEmailAndPassword(email: string, password: string) {
             try {
-                const credential = await signInWithEmailAndPassword(auth, email, password)
+                this.credential = await signInWithEmailAndPassword(auth, email, password)
                 // Get the user data
-                this.profile = (await getDoc(doc(db, 'users', credential.user.uid))).data() as Profile
+                this.profile = (await getDoc(doc(db, 'users', this.credential.user.uid))).data() as Profile
             } catch (error) {
                 throw error
             }
@@ -40,13 +45,8 @@ export const useUserStore = defineStore({
     },
 
     getters: {
-        isLoggedIn(): boolean {
-            if (auth.currentUser === null) return false
-            return !auth.currentUser.isAnonymous
-        },
-
-        user(): User | null {
-            return auth.currentUser
+        user(): Ref<User | null> {
+            return currentUser
         }
     }
 })
